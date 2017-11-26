@@ -1,5 +1,5 @@
 build/
 mirror/
-rst/
+rst*/
 .DS_Store
 *.pyc

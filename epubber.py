@@ -43,11 +43,11 @@ def write_chapter(chap, index, filename):
         pass
 
     body = requests.get(chap).text
-    print "Scraping chapter %s" % chap
     content = BeautifulSoup(body, 'html.parser')
     [s.extract() for s in content('script')]
     [s.extract() for s in content(class_='wpcnt')]
     [s.extract() for s in content(class_='sharedaddy')]
+    [s.extract() for s in content('br')]
 
     try:
         display_title = content.find_all(attrs={'class':'entry-title'})[0].get_text().encode('ascii', 'ignore')

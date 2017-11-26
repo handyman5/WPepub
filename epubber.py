@@ -84,7 +84,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--config', help='YAML config file to use')
     args = parser.parse_args()
     if not args.config:
-        print "Specify 'toc_url' and 'toc_parser' in a YAML file"
+        print "Specify 'toc_url' and 'toc_parser' in a YAML file, or a list of URLs named 'url_list'"
         sys.exit(2)
 
     options = yaml.load(open(args.config))

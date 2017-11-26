@@ -1,0 +1,5 @@
+build/
+mirror/
+rst/
+.DS_Store
+*.pyc

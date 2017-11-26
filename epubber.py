@@ -25,16 +25,16 @@ def get_chapters(options):
         chapters = [x.get('href') for x in soup.select('div.entry-content a') if 'class' not in x.attrs]
     return chapters
 
-def write_chapter(chap, index):
+def write_chapter(chap, index, filename):
     print "Processing chapter %s" % chap
 
     try:
-        os.mkdir('rst')
+        os.mkdir('rst-%s' % filename)
     except OSError:
         pass
 
     matches = re.search('(https?://.+\.com)/(.*)', chap)
-    rst_filename = 'rst/%03d.%s.rst' % (index + 1, matches.groups()[1].replace('/', '-').strip('-'))
+    rst_filename = 'rst-%s/%03d.%s.rst' % (filename, index + 1, matches.groups()[1].replace('/', '-').strip('-'))
     try:
         # skip if we've already processed this one
         os.stat(rst_filename)
@@ -61,8 +61,8 @@ def write_chapter(chap, index):
         text = '\n'.join(text.splitlines()[1:-2])
         f.write(text)
 
-def build_epub(url):
-    with open('rst/000.title-page.rst', 'w') as fh:
+def build_epub(url, filename):
+    with open('rst-%s/000.title-page.rst' % filename, 'w') as fh:
         soup = BeautifulSoup(requests.get(url).text, 'html.parser')
         title = soup.head.title.text.encode('ascii', 'ignore')
         base_url = re.search('(https?://.+\.com)/(.*)', url).groups()[0]
@@ -74,7 +74,7 @@ def build_epub(url):
     except OSError:
         pass
 
-    cmd = ['txt2epub', 'build/out.epub', 'rst/*.rst', '--title="%s"' % title, '--creator=%s' % base_url]
+    cmd = ['txt2epub', 'build/%s.epub' % filename, 'rst-%s/*.rst' % filename, '--title="%s"' % title, '--creator=%s' % base_url]
     p = subprocess.Popen(' '.join(cmd), shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     p.communicate()
 
@@ -88,7 +88,8 @@ if __name__ == '__main__':
         sys.exit(2)
 
     options = yaml.load(open(args.config))
+    filename = args.config.replace('.yaml', '')    
     chapter_urls = get_chapters(options)
-    for chap in chapter_urls[0:4]:
-        write_chapter(chap, chapter_urls.index(chap))
-    build_epub(options['toc_url'])
+    for chap in chapter_urls:
+        write_chapter(chap, chapter_urls.index(chap), filename)
+    build_epub(options['toc_url'], filename)

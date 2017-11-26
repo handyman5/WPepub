@@ -1,0 +1,3 @@
+toc_url: https://twigserial.wordpress.com/
+toc_parser: |
+  ['https://twigserial.wordpress.com/?cat=%s' % x.get('value') for x in soup('option') if 'Story' not in x.text and 'Arc ' not in x.text and 'Select Category' not in x.text]

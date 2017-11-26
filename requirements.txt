@@ -1,0 +1,5 @@
+beautifulsoup4==4.6.0
+PyYAML==3.12
+requests==2.18.4
+Unidecode==0.4.21
+-e git://github.com/mfrasca/txt2epub.git#egg=txt2epub&subdirectory=python

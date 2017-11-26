@@ -1,12 +1,23 @@
-This is a simple set of scripts I put together to generate an ePub edition from a wordpress blog, specifically <http://parahumans.wordpress.com/>. To run it, just do `rake` in the root directory, and it will assemble the final book as `build/out.epub`. 
+# Epubber
 
-Requirements:
+This script generates an epub book from either a Wordpress blog or a set of URLs. It is originally derived from https://github.com/rdeits/WPepub but has been heavily modified.
 
-* python 2.7
-* BeautifulSoup
-* [unidecode](https://pypi.python.org/pypi/Unidecode/)
-* [txt2epub](https://github.com/mfrasca/txt2epub)
-* curl
-* pandoc
-* docutils
-* ninja2
+## Setup
+
+1. This is only tested with Python 2.7.
+1. Make sure you have `pandoc` installed:
+```
+brew install pandoc
+```
+1.
+```
+pip install -r requirements.txt
+```
+
+## Usage
+
+    ./epubber.py -c <yaml filename>
+
+This will create a new epub in `build/<filename-without-.yaml>.epub`.
+
+It will also cache the downloaded pages in `rst-<filename-without-.yaml>` so subsequent runs do not need to redownload them.

@@ -1,3 +1,3 @@
 toc_url: https://practicalguidetoevil.wordpress.com/table-of-contents/
 toc_parser: |
-  [x for x in soup.select('div.entry-content a') if 'class' not in x.attrs]
+  [x.get('href') for x in soup.select('div.entry-content a') if 'class' not in x.attrs]

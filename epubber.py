@@ -17,12 +17,12 @@ def html2rst(html):
     return unidecode(p.communicate(html)[0].decode('utf-8'))
 
 def get_chapters(options):
-    page_content = requests.get(options['toc_url']).text
-    soup = BeautifulSoup(page_content, 'html.parser')
     if 'toc_parser' in options:
-        chapters = [x.get('href') for x in eval(options['toc_parser'].strip())]
-    else:
-        chapters = [x.get('href') for x in soup.select('div.entry-content a') if 'class' not in x.attrs]
+        page_content = requests.get(options['toc_url']).text
+        soup = BeautifulSoup(page_content, 'html.parser')
+        chapters = eval(options['toc_parser'].strip())
+    if 'url_list' in options:
+        chapters = options['url_list']
     return chapters
 
 def write_chapter(chap, index, filename):
@@ -88,7 +88,7 @@ if __name__ == '__main__':
         sys.exit(2)
 
     options = yaml.load(open(args.config))
-    filename = args.config.replace('.yaml', '')    
+    filename = args.config.replace('.yaml', '')
     chapter_urls = get_chapters(options)
     for chap in chapter_urls:
         write_chapter(chap, chapter_urls.index(chap), filename)

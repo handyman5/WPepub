@@ -5,11 +5,11 @@ This script generates an epub book from either a Wordpress blog or a set of URLs
 ## Setup
 
 1. This is only tested with Python 2.7.
-1. Make sure you have `pandoc` installed:
+2. Make sure you have `pandoc` installed:
 ```
 brew install pandoc
 ```
-1.
+3. Install the requirements:
 ```
 pip install -r requirements.txt
 ```

@@ -1,4 +1,4 @@
-# py-epubber
+# trivialpub
 
 This script generates an epub book from either a Wordpress blog or a set of URLs. It is originally derived from https://github.com/rdeits/WPepub but has been heavily modified.
 
@@ -16,7 +16,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-    ./epubber.py -c <yaml filename>
+    ./trivialpub.py -c <yaml filename>
 
 This will create a new epub in `build/<filename-without-.yaml>.epub`.
 

@@ -1,4 +1,4 @@
-# Epubber
+# py-epubber
 
 This script generates an epub book from either a Wordpress blog or a set of URLs. It is originally derived from https://github.com/rdeits/WPepub but has been heavily modified.
 

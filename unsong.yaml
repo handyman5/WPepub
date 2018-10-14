@@ -1,0 +1,5 @@
+toc_url: http://unsongbook.com/
+toc_parser: |
+  [x.get('href') for x in soup.find('div', attrs={'class':'pjgm-postcontent'}).findAll('a') if 'unsongbook.com' in x.get('href') and '?' not in x.get('href')]
+title_class: pjgm-posttitle
+content_class: pjgm-postcontent

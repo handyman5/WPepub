@@ -1,3 +1,5 @@
 toc_url: https://parahumans.wordpress.com/
 toc_parser: |
   [x.get('href') for x in soup.find('h3', text='Table of Contents').find_next_sibling().select('li a') if 'Stories' not in x.text and 'Arc ' not in x.text]
+title_class: entry-title
+content_class: entry-content

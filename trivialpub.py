@@ -51,6 +51,9 @@ def write_chapter(chap, index, filename, options):
     [s.extract() for s in content('img')]
     [s.extract() for s in content('hr')]
     [s.extract() for s in content(text=u'\u2619')]
+    [s.extract() for s in content.select('a[name]')]
+    bad_name = content.find(class_='post-body')
+    del bad_name['id']
     
     try:
         display_title = content.find_all(attrs={'class':options.get('title_class')})[0].get_text().encode('ascii', 'ignore')
@@ -87,11 +90,14 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--config', help='YAML config file to use')
     args = parser.parse_args()
     if not args.config:
-        print "Specify 'toc_url' and 'toc_parser' in a YAML file, or a list of URLs named 'url_list'"
+        print "Specify 'toc_url' and 'toc_parser' in a YAML file with '-c', or a list of URLs named 'url_list'"
         sys.exit(2)
 
     options = yaml.load(open(args.config))
     filename = args.config.replace('.yaml', '')
+    if not (options.get('toc_parser') or options.get('url_list')):
+        print "Your YAML file must specify one of 'toc_parser' or 'url_list'; fix it and try again"
+        sys.exit(2)
     chapter_urls = get_chapters(options)
     for chap in chapter_urls:
         write_chapter(chap, chapter_urls.index(chap), filename, options)

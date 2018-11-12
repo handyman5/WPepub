@@ -1,0 +1,7 @@
+toc_url: https://pervocracy.blogspot.com/p/fifty-shades-of-grey-index.html
+toc_parser: |
+  [x.get('href') for x in soup.find(class_='entry-content').select('a')]
+
+  #  ['https://twigserial.wordpress.com/?cat=%s' % x.get('value') for x in soup('option') if 'Story' not in x.text and 'Arc ' not in x.text and 'Select Category' not in x.text]
+title_class: entry-title
+content_class: entry-content
